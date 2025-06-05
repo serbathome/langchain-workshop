@@ -1,2 +1,4 @@
 langchain
 langchain-openai
+langchain-core
+langgraph
