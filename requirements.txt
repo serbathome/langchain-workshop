@@ -2,3 +2,6 @@ langchain
 langchain-openai
 langchain-core
 langgraph
+langchain-community
+tavily-python
+langgraph-checkpoint-sqlite
