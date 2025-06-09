@@ -8,3 +8,4 @@ langgraph
 langchain-community
 tavily-python
 langgraph-checkpoint-sqlite
+python-dotenv

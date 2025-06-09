@@ -4,6 +4,10 @@ import os
 from langchain_openai import AzureChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.prompts import ChatPromptTemplate
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # create an instance of AzureChatOpenAI with environment variables
 model = AzureChatOpenAI(

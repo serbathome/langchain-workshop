@@ -5,7 +5,12 @@ from langchain_core.messages import HumanMessage, trim_messages, AIMessage
 
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import START, MessagesState, StateGraph
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
+
+# Initialize the AzureChatOpenAI model with environment variables
 model = AzureChatOpenAI(
     azure_endpoint=os.environ["AZURE_OPENAI_ENDPOINT"],
     azure_deployment=os.environ["AZURE_OPENAI_DEPLOYMENT_NAME"],
@@ -14,8 +19,11 @@ model = AzureChatOpenAI(
     openai_api_key=os.environ["AZURE_OPENAI_API_KEY"],
 )
 
+# Define the state schema for the workflow
 workflow = StateGraph(state_schema=MessagesState)
 
+# Define a trimmer to limit the number of tokens in the messages
+# This will keep the last 65 tokens, including system messages, and will not allow partial messages.
 trimmer = trim_messages(
     max_tokens=65,
     strategy="last",
@@ -25,23 +33,30 @@ trimmer = trim_messages(
     start_on="human",
 )
 
-
+# Define a function to call the model with the trimmed messages
 def call_model(state: MessagesState):
     trimmed_messages = trimmer.invoke(state["messages"])
     response = model.invoke(trimmed_messages)
     return {"messages": response}
 
+# Add the start node and the model call to the workflow
 workflow.add_edge(START, "model")
+# Add the call_model function as a node in the workflow
 workflow.add_node("model", call_model)
 
+# Create a memory saver to keep track of the conversation history
+# This will allow the workflow to remember previous messages and responses.
 memory = MemorySaver()
 app = workflow.compile(checkpointer=memory)
 
+# Configuration for the application
+# This can include any configurable parameters needed for the workflow.
 config = {"configurable": {"thread_id": "abc123"}}
 
 
 print("Type 'exit' to quit.")
 
+# Start the interactive loop to chat with the model
 while True:
     query = input("You: ")
     if query.lower() == "exit":
