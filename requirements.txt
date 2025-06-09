@@ -1,0 +1,10 @@
+langchain
+langchain-openai
+langchain_openai
+langchain-anthropic
+langchain_anthropic
+langchain-core
+langgraph
+langchain-community
+tavily-python
+langgraph-checkpoint-sqlite
