@@ -64,7 +64,7 @@ search = TavilySearchResults(
 )
 
 print("🔧 Initializing ReAct Agent...")
-print(f"🧠 Model: {model.model_name}")
+print("🧠 Model: Claude 3.5 Sonnet (Anthropic)")
 print(f"🔍 Search Tool: Tavily (max {search.max_results} results)")
 print("💾 Memory: Enabled with MemorySaver")
 print("-" * 60)
