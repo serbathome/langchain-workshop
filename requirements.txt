@@ -1,11 +1,12 @@
 langchain
-langchain-openai
-langchain_openai
-langchain-anthropic
-langchain_anthropic
+langchain[openai]
+langchain[anthropic]
 langchain-core
 langgraph
 langchain-community
 tavily-python
 langgraph-checkpoint-sqlite
 python-dotenv
+beautifulsoup4
+langchain-text-splitters
+
